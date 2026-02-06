@@ -1,6 +1,8 @@
 #include <zephyr/kernel.h>
 #include <zephyr/drivers/gpio.h>
 
+#include "messages.h"
+
 #define HEARTBEAT_INTERVAL_MS 250
 #define HEARTBEAT_STACK_SIZE  512
 #define HEARTBEAT_PRIORITY    7  /* Preemptable priority (positive value) */
@@ -40,6 +42,11 @@ int main(void)
 	}
 
 	printk("Heartbeat task started (250ms interval)\n");
+
+	ret = messages_init();
+	if (ret < 0) {
+		printk("Warning: CAN init failed (%d)\n", ret);
+	}
 
 	while (1) {
 		k_sleep(K_FOREVER);

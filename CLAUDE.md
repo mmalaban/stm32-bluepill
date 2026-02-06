@@ -6,7 +6,7 @@
 - RTOS: Zephyr
 
 ## Environment
-- Zephyr toolchain runs in Docker (no git in container)
+- Zephyr toolchain runs in Docker — Claude cannot run builds directly; ask the user to build and report results
 - `BUILD_VERSION` is set statically in CMakeLists.txt
 
 ## Build Commands
@@ -25,13 +25,18 @@ west flash
 ```
 stm32-bluepill/
 ├── CMakeLists.txt   # Zephyr build config, BUILD_VERSION defined here
-├── prj.conf         # Kconfig options (shell, GPIO, binary name, etc.)
+├── prj.conf         # Kconfig options (shell, GPIO, CAN, binary name, etc.)
+├── boards/
+│   └── stm32_min_dev.overlay  # DTS overlay (LED alias, CAN enable)
 ├── src/
-│   └── main.c       # Application entry + task definitions
+│   ├── main.c       # Application entry + task definitions
+│   ├── messages.c   # CAN bus init and messaging interface
+│   └── messages.h   # Public API for messages module
 └── readme.md        # Project description
 ```
 
 ## Features Enabled
 - Zephyr shell (UART)
 - GPIO (for LED heartbeat)
+- CAN bus (500 kbps via Zephyr native bxCAN driver)
 - Console/serial output

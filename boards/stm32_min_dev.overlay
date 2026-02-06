@@ -2,4 +2,15 @@
 	aliases {
 		on-board-led = &led;
 	};
+
+	chosen {
+		zephyr,canbus = &can1;
+	};
+};
+
+&can1 {
+	pinctrl-0 = <&can_rx_pa11 &can_tx_pa12>;
+	pinctrl-names = "default";
+	status = "okay";
+	bus-speed = <500000>;
 };
