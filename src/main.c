@@ -5,8 +5,8 @@
 #define HEARTBEAT_STACK_SIZE  512
 #define HEARTBEAT_PRIORITY    7  /* Preemptable priority (positive value) */
 
-/* Onboard LED - uses the "led0" alias from the board's devicetree */
-static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(DT_ALIAS(led0), gpios);
+/* Onboard LED - uses the "on_board_led" alias from the DTS overlay */
+static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(DT_ALIAS(on_board_led), gpios);
 
 static void heartbeat_task(void *p1, void *p2, void *p3)
 {
